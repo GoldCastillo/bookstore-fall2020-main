@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Add book</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+</head>
+<body>
+	<div class="container">
+		<h2>Edit Book</h2>
+		<div class="col-md-4">
+			<form th:object="${book}" th:action="@{../save}" action="#"
+				method="post">
+				<input type="hidden" th:field="*{id}" class="form-control" />
+				<div>
+					<label for="title"></label><input type="text"
+						th:field="*{title}" />
+				</div>
+				<div>
+					<label for="author"></label><input type="text"
+						th:field="*{author}" />
+				</div>
+				<div>
+					<label for="year"></label><input type="text" th:field="*{year}" />
+				</div>
+				<div>
+					<label for="isbn"></label><input type="text" th:field="*{isbn}" />
+				</div>
+				<div>
+					<label for="price"></label><input type="text"
+						th:field="*{price}" />
+				</div>
+				
+				<div>
+						<select id="catlist" th:field="*{category}" class="form-control">
+							<option th:each="category: ${categories}" th:value="${category.categoryid}" th:text="${category.name}"></option>
+						</select>
+				</div>
+
+				<input type="submit" class="btn btn-success" value="Save"></input>
+			</form>
+
+		</div>
+	</div>
+
+</body>
+</html>
