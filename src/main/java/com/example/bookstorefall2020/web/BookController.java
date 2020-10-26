@@ -1,4 +1,4 @@
-package swd20.Bookstore.web;
+package com.example.bookstorefall2020.web;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,92 +13,77 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import swd20.Bookstore.domain.Book;
-import swd20.Bookstore.domain.BookRepository;
-import swd20.Bookstore.domain.CategoryRepository;
+import com.example.bookstorefall2020.domain.Book;
+import com.example.bookstorefall2020.domain.BookRepository;
+import com.example.bookstorefall2020.domain.CategoryRepository;
 
 @Controller
 public class BookController {
-	
-	
-	
+
 	@Autowired
 	private BookRepository bookRepository;
-	
+
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
-	//Kirajutumis sivu
-	@RequestMapping(value="/login")
+
+	@RequestMapping(value = "/login")
 	public String login() {
 		return "login";
 	}
-	
-	//palauttaa kirjalistauksen
+
 	@RequestMapping(value = "/booklist", method = RequestMethod.GET)
 	public String getBooks(Model model) {
-		//lisätään autolista model-olion mappiin avainarvolla templatea varten
+
 		model.addAttribute("books", bookRepository.findAll());
-		
-		return "booklist"; //palautetaan Books.html
+
+		return "booklist";
 	}
-	
-	//REST metodi joka palauttaa kaikki kirjat listana (JSON)
-	@RequestMapping(value="/books", method = RequestMethod.GET)
-	public @ResponseBody List<Book> bookListRest(){
+
+	@RequestMapping(value = "/books", method = RequestMethod.GET)
+	public @ResponseBody List<Book> bookListRest() {
 		return (List<Book>) bookRepository.findAll();
 	}
-	
-	//REST metodi joka hakee kirjan sen IDllä
-	@RequestMapping(value="/books/{id}", method = RequestMethod.GET)
-	public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long id){
+
+	@RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
+	public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long id) {
 		return bookRepository.findById(id);
 	}
-	
-	//REST metodi uuden kirjan tallentamiseen
-	@RequestMapping(value="books", method = RequestMethod.POST)
-	public @ResponseBody Book saveBookRest (@RequestBody Book book) {
+
+	@RequestMapping(value = "books", method = RequestMethod.POST)
+	public @ResponseBody Book saveBookRest(@RequestBody Book book) {
 		return bookRepository.save(book);
 	}
-	
-	
-	
-	//Kirjan poisto
+
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteBook(@PathVariable("id") Long bookId, Model model) {
 		bookRepository.deleteById(bookId);
 		return "redirect:../booklist";
 	}
-	
-	//Kirjan lisäys
-	@RequestMapping(value = "/add") //tekee tyhjän kirja objektin
+
+	@RequestMapping(value = "/add")
 	public String addBook(Model model) {
 		model.addAttribute("book", new Book());
 		model.addAttribute("categories", categoryRepository.findAll());
 		return "addbook";
 	}
-	
-	//Kirjan tallennus
+
 	@RequestMapping(value = "/save")
 	public String save(Book book) {
 		bookRepository.save(book);
 		return "redirect:booklist";
 	}
-	
-	//Kirjan muokkaus
-	@RequestMapping(value= "/edit/{id}")
+
+	@RequestMapping(value = "/edit/{id}")
 	public String editBook(@PathVariable("id") Long bookId, Model model) {
 		model.addAttribute("book", bookRepository.findById(bookId));
 		model.addAttribute("categories", categoryRepository.findAll());
 		return "editbook";
 	}
-	
-	//http://localhost:8080/index
+
 	@RequestMapping("/index")
 	public String Bookstore() {
 		return "booklist";
 	}
-	
 
 }

@@ -1,4 +1,4 @@
-package swd20.Bookstore;
+package com.example.bookstorefall2020;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,43 +10,32 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import swd20.Bookstore.web.UserDetailsServiceImpl;
+
+import com.example.bookstorefall2020.web.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
-@Autowired
-private UserDetailsServiceImpl userDetailsService;
-	
-@Bean
-public UserDetailsService userDetailsService() {
-    return super.userDetailsService();
-}
 
-@Override
-protected void configure(HttpSecurity http) throws Exception {
-	http
-		.authorizeRequests().antMatchers("/css/**").permitAll() //Ei vaadi sisäänkirjautumista
-		.and()
-		.authorizeRequests().anyRequest().authenticated() //kaikki muut endpointit vaativat sisäänkirjautumisen
-		.and()
-	.formLogin()
-		.loginPage("/login") //login page endpoint
-		.defaultSuccessUrl("/booklist", true) //ohjaus jos login onnistunut
-		.permitAll()
-		.and()
-	.logout()
-		.permitAll();
-}
+	@Autowired
+	private UserDetailsServiceImpl userDetailsService;
 
+	@Bean
+	public UserDetailsService userDetailsService() {
+		return super.userDetailsService();
+	}
 
-	
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/css/**").permitAll().and().authorizeRequests().anyRequest()
+				.authenticated().and().formLogin().loginPage("/login").defaultSuccessUrl("/booklist", true).permitAll()
+				.and().logout().permitAll();
+	}
+
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-	auth.userDetailsService(userDetailsService).passwordEncoder(new
-	BCryptPasswordEncoder());
+		auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 	}
 
 }

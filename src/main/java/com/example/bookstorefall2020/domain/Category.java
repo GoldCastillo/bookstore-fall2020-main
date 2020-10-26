@@ -1,4 +1,4 @@
-package swd20.Bookstore.domain;
+package com.example.bookstorefall2020.domain;
 
 import java.util.List;
 
@@ -13,30 +13,25 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Category {
-	//attribuutit
-	@Id //taulun pääavain
+
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long categoryid;
 	private String name;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
-	//@JsonIgnore (vältytään loopilta)
+	//
 	@JsonIgnoreProperties("categories")
 	private List<Book> books;
 
-	
-	//konstruktorit
-	
 	public Category(String name) {
-		
+
 		this.name = name;
 	}
-	
+
 	public Category() {
-		
+
 	}
-	
-	//getterit/setterit
 
 	public long getCategoryid() {
 		return categoryid;
@@ -53,9 +48,7 @@ public class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
-	
+
 	public List<Book> getBooks() {
 		return books;
 	}
@@ -63,17 +56,10 @@ public class Category {
 	public void setBooks(List<Book> books) {
 		this.books = books;
 	}
-	
-
-	//toString
 
 	@Override
 	public String toString() {
 		return "Category [categoryid=" + categoryid + ", name=" + name + "]";
 	}
-	
-	
-	
-	
 
 }

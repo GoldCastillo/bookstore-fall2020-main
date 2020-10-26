@@ -1,4 +1,4 @@
-package swd20.Bookstore.domain;
+package com.example.bookstorefall2020.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,25 +9,22 @@ import javax.persistence.Id;
 @Entity
 public class User {
 
-	//attribuutit
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "uId", nullable = false, updatable = false)
-	private long uId;
-	
-	//Uniikki käyttäjänimi
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
-    
-    @Column(name = "password", nullable = false)
-    private String passwordHash;
-    
-    @Column(name = "role", nullable = false)
-    private String role;
-    
-    @Column(name = "email", nullable = false)
-    private String email;
+	@Column(name = "Id", nullable = false, updatable = false)
+	private long Id;
 
+	@Column(name = "username", nullable = false, unique = true)
+	private String username;
+
+	@Column(name = "password", nullable = false)
+	private String passwordHash;
+
+	@Column(name = "role", nullable = false)
+	private String role;
+
+	@Column(name = "email", nullable = false)
+	private String email;
 
 	public User(String username, String passwordHash, String role, String email) {
 		super();
@@ -38,15 +35,15 @@ public class User {
 	}
 
 	public User() {
-		
+
 	}
 
-	public long getuId() {
-		return uId;
+	public long getId() {
+		return Id;
 	}
 
-	public void setuId(long uId) {
-		this.uId = uId;
+	public void setId(long Id) {
+		this.Id = Id;
 	}
 
 	public String getUsername() {
@@ -80,5 +77,5 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 }

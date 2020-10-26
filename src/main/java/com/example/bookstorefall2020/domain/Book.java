@@ -1,4 +1,4 @@
-package swd20.Bookstore.domain;
+package com.example.bookstorefall2020.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,35 +11,23 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Book {
-	//attribuutit
-	@Id //määrää taulun pääavaimen
-	@GeneratedValue(strategy = GenerationType.AUTO) //tietokantapalvelin generoi uniikin arvon
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String title;
 	private String author;
 	private int year;
-	private int isbn;
+	private String isbn;
 	private double price;
-	
+
 	@ManyToOne
-	//Vältytään loputtomalta loopilta käyttämällä @JsonIgnoreProperties
+
 	@JsonIgnoreProperties("books")
 	@JoinColumn(name = "categoryid")
 	private Category category;
-	
-	//konstruktorit
-	
-	public Book() {
-		/*
-		super();
-		this.title = null;
-		this.author = null;
-		this.year = 0;
-		this.isbn = 0;
-		this.price = 0.00;*/
-	}
-	
-	public Book(String title, String author, int year, int isbn, double price, Category category) {
+
+	public Book(String title, String author, int year, String isbn, double price, Category category) {
 		super();
 		this.title = title;
 		this.author = author;
@@ -48,24 +36,14 @@ public class Book {
 		this.price = price;
 		this.category = category;
 	}
-	
-	
 
-	
-	
-	
-
-	//getterit ja setterit
-	
-	
-
-
+	public Book() {
+		super();
+	}
 
 	public long getId() {
 		return id;
 	}
-
-	
 
 	public void setId(long id) {
 		this.id = id;
@@ -74,7 +52,7 @@ public class Book {
 	public String getTitle() {
 		return title;
 	}
-	
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -95,11 +73,11 @@ public class Book {
 		this.year = year;
 	}
 
-	public int getIsbn() {
+	public String getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(int isbn) {
+	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
 
@@ -110,7 +88,7 @@ public class Book {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
+
 	public Category getCategory() {
 		return category;
 	}
@@ -119,18 +97,10 @@ public class Book {
 		this.category = category;
 	}
 
-	//toString
-	
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", year=" + year + ", isbn=" + isbn
 				+ ", price=" + price + "]";
 	}
-
-
-	
-	
-	
-	
 
 }
