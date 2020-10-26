@@ -5,18 +5,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.Console;
 import java.util.List;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 
 import com.example.bookstorefall2020.Bookstorefall2020Application;
 import com.example.bookstorefall2020.domain.Category;
 import com.example.bookstorefall2020.domain.CategoryRepository;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @DataJpaTest
 public class CategoryRepositoryTest {
 

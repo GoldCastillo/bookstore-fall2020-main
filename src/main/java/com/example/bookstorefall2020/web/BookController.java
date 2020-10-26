@@ -27,7 +27,12 @@ public class BookController {
 	private CategoryRepository categoryRepository;
 
 	@RequestMapping(value = "/login")
-	public String login() {
+	public String empty() {
+		return "login";
+	}
+	
+	@RequestMapping(value = "/")
+	public String index() {
 		return "login";
 	}
 
