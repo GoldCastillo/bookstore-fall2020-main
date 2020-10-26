@@ -2,22 +2,18 @@ package com.example.bookstorefall2020.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.Console;
 import java.util.List;
-import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 
 import com.example.bookstorefall2020.Bookstorefall2020Application;
 import com.example.bookstorefall2020.domain.Category;
 import com.example.bookstorefall2020.domain.CategoryRepository;
 
-@ExtendWith(SpringExtension.class)
 @DataJpaTest
 public class CategoryRepositoryTest {
 
@@ -47,7 +43,5 @@ public class CategoryRepositoryTest {
 		List<Category> deletedCategory = repository.findByName("Adventure");
 		assertThat(deletedCategory).hasSize(0);
 	}
-
-	
 
 }
